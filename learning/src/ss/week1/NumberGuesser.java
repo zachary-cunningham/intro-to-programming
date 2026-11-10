@@ -1,6 +1,8 @@
 package ss.week1;
 import java.util.Scanner;
 
+/** IP 1.10 **/
+
 public class NumberGuesser {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
