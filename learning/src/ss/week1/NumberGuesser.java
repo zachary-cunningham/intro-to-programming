@@ -9,7 +9,7 @@ public class NumberGuesser {
         double num = Math.floor(Math.random() * 100);
         boolean correct = false;
 
-        while (correct == false) {
+        while (!correct) {
             System.out.println("Guess a number between 1 and 100");
             int guess = input.nextInt();
 
