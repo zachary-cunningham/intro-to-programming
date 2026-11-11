@@ -20,18 +20,40 @@ import java.util.Scanner;
  *              starting++
  * **/
 
-
+/**
+ *
+ *
+ * @author zacharycunningham, syedrezaali
+ * **/
 public class OutputPrimes {
+
+    /**
+     * This subroutine calculates whether a given number is prime, returning true or false.
+     *
+     * @param number the number we're checking if is Prime
+     * @return boolean, if the number is prime
+     * **/
     public static boolean isPrime(int number) {
         // output is true or false
+
+        // set a minimum number we know is prime
         var i = 2;
+
+        // for every integer lower than given number
         while (i < number) {
+
+            // if there is no remainder by dividing num / i
             if ((number % i) == 0) {
+                // return is not prime, immediately exit loop
                 return false;
             } else {
+
+                // else continue for rest
                 i ++;
             }
         }
+
+        // if we reach the end of the loop, then it is a prime
         return true;
     }
 
