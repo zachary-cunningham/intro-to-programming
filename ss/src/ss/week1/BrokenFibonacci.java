@@ -7,18 +7,17 @@ public class BrokenFibonacci {
      * @param n the index of the nth number in the sequence
      * @return the nth fibonacci number
      */
-
     public static long fibonacci(int n) {
-        if (n > 2) {
-            return n;
-        } else {
+//        if (n > 2) {
+//            return n;
+//        } else {
             long[] array = new long[n + 1];
             array[0] = 1;
             array[1] = 2;
-            for (int i = 0; i < n; i++) {
+            for (int i = 2; i < (n - 1); i++) {
                 array[i] = array[i - 1] - array[i - 2];
             }
-            return array[n - 1];
-        }
+            return array[n-1];x
+//        }
     }
 }
