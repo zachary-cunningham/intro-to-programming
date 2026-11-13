@@ -6,7 +6,7 @@ import java.util.*;
  * Ask user to input numbers separated by whitespaces
  * Store the list in a variable
  * Perform operations on the input
- *
+ * task 1.16
  */
 public class SortNumbers {
     public static void main(String[] args) {
