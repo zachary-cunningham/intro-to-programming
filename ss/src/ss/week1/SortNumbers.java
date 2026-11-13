@@ -4,9 +4,14 @@ import java.util.*;
 
 /**
  * Ask user to input numbers separated by whitespaces
+ * @param String of nums
  * Store the list in a variable
- * Perform operations on the input
- * task 1.16
+ * use .split to split the array into single characters
+ * iterate thru each item and add them into and int array
+ * sort the array and print it out
+ * @return sorted int array
+ * @author reza , Zach
+ *
  */
 public class SortNumbers {
     public static void main(String[] args) {
@@ -37,7 +42,4 @@ public class SortNumbers {
         System.out.println(Arrays.toString(split1));
 
     }
-    //bubble sort:
-    // first for loop; from 0 to length -1
-    // nested loop:
 }
