@@ -49,22 +49,10 @@ public class OutputEmirps {
 
         // turn into an array of chars
         char[] characters = str.toCharArray();
-
-        // turn into array of ints
-        int[] numbers = new int[characters.length];
-
-        // reverse the array
-        int[] reversed = new int[characters.length];
-
-        for (var i = numbers.length - 1; i > -1; i--) {
-            int pointer = numbers.length - i - 1;
-            reversed[pointer] = numbers[i];
-        }
-
-        // turn array into string of numbers
         String assembled = "";
-        for (var i = 0; i < reversed.length; i++) {
-            assembled = assembled + Integer.toString(reversed[i]);
+
+        for (var i = 0; i < characters.length; i++) {
+            assembled = characters[i] + assembled;
         }
 
         // turn into a single number
@@ -76,7 +64,7 @@ public class OutputEmirps {
     // • A method public static boolean isEmirp(int number)that returns true if and only if
     // the given number is an emirp, using the methods isPrime and reverse.
     public static boolean isEmirp(int number) {
-        return (isPrime(number) && isPrime(reverse(number)));
+        return (isPrime(number) && isPrime(reverse(number)) && (reverse(number) != number));
     }
 
     public static void main(String[] args) {
@@ -104,5 +92,14 @@ public class OutputEmirps {
         }
 
         System.out.println(Arrays.toString(emirps));
+
+
+        // testing the reverse
+//        while (1 == 1) {
+//            System.out.println("gimme a number to reverse");
+//            Scanner input = new Scanner(System.in);
+//            int num = input.nextInt();
+//            System.out.println(reverse(num));
+//        }
     }
 }
