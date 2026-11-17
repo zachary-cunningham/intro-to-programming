@@ -1,4 +1,5 @@
 package ss.week1;
+import java.util.Scanner;
 
 /**
  * Two classic ciphers, the Caesar cipher and the Vigenere cipher. Only the
@@ -15,7 +16,46 @@ public class SecretMessages {
      *         letters a to z or A to Z
      */
     public static char shiftLetter(char c, int shift) {
-        return c; // TODO
+        String alpha = "abcdefghijklmnopqrstuvwxyz";
+        char[] alphabet = alpha.toCharArray();
+
+        // determine if it's a letter to shift
+        // determine if it's capital
+
+
+        boolean foundIndex = false;
+        boolean isLetter = false;
+
+        // logic to determine whether the given char is capital
+        boolean isCapital = false;
+        if (Character.toLowerCase(c) != c) {
+            isCapital = true;
+        }
+
+        int index = 0;
+
+        while (!foundIndex) {
+            if (Character.toLowerCase(c) == alphabet[index]) {
+                foundIndex = true;
+                isLetter = true;
+            }
+            if (index >= 25) {
+                // didn't find, but must exit loop
+                foundIndex = true;
+                // isLetter remains false.
+            }
+        }
+
+        char shifted = c;
+        if (isLetter) {
+            int newIndex = (index + shift) % 25;
+            shifted = alphabet[newIndex];
+
+            if(isCapital) {
+                shifted = Character.toUpperCase(shifted);
+            }
+        }
+        return shifted;
     }
 
     /**
@@ -60,5 +100,14 @@ public class SecretMessages {
      */
     public static String vigenereDecrypt(String text, String key) {
         return null; // TODO
+    }
+
+    public static void main(String[] args) {
+        // testing shift
+        int s = 1;
+        char c = '!';
+        System.out.println(shiftLetter(c, s));
+
+
     }
 }
