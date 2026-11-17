@@ -21,8 +21,6 @@ public class SecretMessages {
 
         // determine if it's a letter to shift
         // determine if it's capital
-
-
         boolean foundIndex = false;
         boolean isLetter = false;
 
@@ -44,6 +42,7 @@ public class SecretMessages {
                 foundIndex = true;
                 // isLetter remains false.
             }
+            index++;
         }
 
         char shifted = c;
