@@ -14,7 +14,6 @@ public class UniqueArray {
         int idx = 0;;
         values = Arrays.stream(values).sorted().toArray();
         int tmp = -1;
-        int ctr = 0;
 
         for(int i = 0; i < values.length; i++){
 
@@ -22,11 +21,10 @@ public class UniqueArray {
                 A[idx] = values[i];
                 idx++;
                 tmp = values[i+1];
-                ctr++;
 
             }
         }
-        int[] secondArr = new int[ctr];
+        int[] secondArr = new int[idx];
         for (int i = 0; i < secondArr.length; i++){
             secondArr[i] = A[i];
         }
