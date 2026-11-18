@@ -10,10 +10,11 @@ public class SecretMessages {
     /**
      * Shifts a letter the given number of places further in the alphabet,
      * wrapping around from z to a. The letter keeps its case.
-     * @param c the character to shift
+     *
+     * @param c     the character to shift
      * @param shift the number of places, from 0 to 25
      * @return the shifted letter, or c itself if it is not one of the
-     *         letters a to z or A to Z
+     * letters a to z or A to Z
      **/
     public static char shiftLetter(char c, int shift) {
         String alpha = "abcdefghijklmnopqrstuvwxyz";
@@ -42,7 +43,7 @@ public class SecretMessages {
             int newIndex = (index + shift) % 26;
             shifted = alphabet[newIndex];
 
-            if(isCapital) {
+            if (isCapital) {
                 shifted = Character.toUpperCase(shifted);
             }
         }
@@ -52,7 +53,8 @@ public class SecretMessages {
     /**
      * Encrypts a text with the Caesar cipher: every letter is shifted the
      * given number of places.
-     * @param text the text to encrypt
+     *
+     * @param text  the text to encrypt
      * @param shift the number of places, from 0 to 25
      * @return the encrypted text
      */
@@ -61,11 +63,11 @@ public class SecretMessages {
         char[] arr = text.toCharArray();
         String shifted = "";
         int modShift = shift;
-        if(modShift < 0) {
+        if (modShift < 0) {
             modShift += 26;
         }
 
-        for(var i = 0; i < arr.length; i++) {
+        for (var i = 0; i < arr.length; i++) {
             shifted = shifted + shiftLetter(arr[i], modShift);
         }
 
@@ -74,7 +76,8 @@ public class SecretMessages {
 
     /**
      * Decrypts a text that was encrypted with caesarEncrypt.
-     * @param text the text to decrypt
+     *
+     * @param text  the text to decrypt
      * @param shift the shift that was used to encrypt it, from 0 to 25
      * @return the decrypted text
      */
@@ -87,18 +90,29 @@ public class SecretMessages {
      * by the next letter of the key (a shifts by 0, b by 1, ...,
      * z by 25). When the key is used up, it starts again. Other
      * characters do not use up a letter of the key.
+     *
      * @param text the text to encrypt
-     * @param key the key; at least one letter, only a to z
+     * @param key  the key; at least one letter, only a to z
      * @return the encrypted text
      */
     public static String vigenereEncrypt(String text, String key) {
-        return null; // TODO
+        char[] charArray = text.toCharArray();
+        char[] keyArray = key.toCharArray();
+        int keyIndex = 0;
+        String outString = "";
+
+        for (int i = 0; i < charArray.length; i++) {
+            outString = outString + shiftLetter(charArray[i], keyArray[keyIndex]);
+            keyIndex = (keyIndex + 1) % keyArray.length;
+        }
+        return outString;
     }
 
     /**
      * Decrypts a text that was encrypted with vigenereEncrypt.
+     *
      * @param text the text to decrypt
-     * @param key the key that was used to encrypt it
+     * @param key  the key that was used to encrypt it
      * @return the decrypted text
      */
     public static String vigenereDecrypt(String text, String key) {
@@ -107,13 +121,14 @@ public class SecretMessages {
 
     public static void main(String[] args) {
         // testing shift
+//
+        System.out.println("Enter the text you want ciphered: ");
         Scanner input = new Scanner(System.in);
 
-
-        System.out.println("What would you like to decrypt?");
         String text = input.nextLine();
-        System.out.println("How many shifts?");
-        int shift = input.nextInt();
-        System.out.println(caesarDecrypt(text, shift));
+        System.out.println("Enter the key: ");
+        String key = input.nextLine();
+        System.out.println("Your ciphered text is: " + vigenereEncrypt(text, key));
+
     }
 }
