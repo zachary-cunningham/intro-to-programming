@@ -41,6 +41,9 @@ public class SecretMessages {
         // only shift if c is a letter
         if (isLetter) {
             int newIndex = (index + shift) % 26;
+            if(newIndex < 0) {
+                newIndex += 26;
+            }
             shifted = alphabet[newIndex];
 
             if (isCapital) {
@@ -101,8 +104,18 @@ public class SecretMessages {
         int keyIndex = 0;
         String outString = "";
 
+        // for each letter in plaintext
         for (int i = 0; i < charArray.length; i++) {
-            outString = outString + shiftLetter(charArray[i], keyArray[keyIndex]);
+
+            // turn letter into shift value
+            int shift = keyArray[keyIndex];
+            shift = shift - 'A';
+            shift = shift % 26;
+            if (shift < 0) {
+                shift += 26;
+            }
+
+            outString = outString + shiftLetter(charArray[i], shift);
             keyIndex = (keyIndex + 1) % keyArray.length;
         }
         return outString;
@@ -116,7 +129,30 @@ public class SecretMessages {
      * @return the decrypted text
      */
     public static String vigenereDecrypt(String text, String key) {
-        return null; // TODO
+        char[] charArray = text.toCharArray();
+        char[] keyArray = key.toCharArray();
+        int keyIndex = 0;
+        String outString = "";
+
+        // -----
+
+        // for each ciphertext
+        for (int i = 0; i < charArray.length; i++) {
+
+            // turn key character into shift value
+            int shift = keyArray[keyIndex];
+            shift = shift - 'A';
+            shift = shift % 26;
+            if (shift < 0) {
+                shift += 26;
+            }
+
+            outString = outString + shiftLetter(charArray[i], -shift);
+            keyIndex = (keyIndex + 1) % keyArray.length;
+        }
+        return outString;
+
+
     }
 
     public static void main(String[] args) {
@@ -128,7 +164,13 @@ public class SecretMessages {
         String text = input.nextLine();
         System.out.println("Enter the key: ");
         String key = input.nextLine();
-        System.out.println("Your ciphered text is: " + vigenereEncrypt(text, key));
+        String ciphertext = vigenereEncrypt(text, key);
+        System.out.println("Your ciphered text is: " + ciphertext);
+
+
+
+        System.out.println("and then by your silly negation logic, the decryption would apparently be");
+        System.out.println("Your deciphered text is: " + vigenereDecrypt(ciphertext, key));
 
     }
 }
