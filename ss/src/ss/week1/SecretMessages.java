@@ -1,5 +1,5 @@
 package ss.week1;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Two classic ciphers, the Caesar cipher and the Vigenere cipher. Only the
@@ -14,40 +14,32 @@ public class SecretMessages {
      * @param shift the number of places, from 0 to 25
      * @return the shifted letter, or c itself if it is not one of the
      *         letters a to z or A to Z
-     */
+     **/
     public static char shiftLetter(char c, int shift) {
         String alpha = "abcdefghijklmnopqrstuvwxyz";
         char[] alphabet = alpha.toCharArray();
 
         // determine if it's a letter to shift
-        // determine if it's capital
         boolean foundIndex = false;
         boolean isLetter = false;
-
-        // logic to determine whether the given char is capital
-        boolean isCapital = false;
-        if (Character.toLowerCase(c) != c) {
-            isCapital = true;
-        }
+        boolean isCapital = Character.isUpperCase(c);
 
         int index = 0;
-
-        while (!foundIndex) {
+        while (!foundIndex && index <= 25) {
             if (Character.toLowerCase(c) == alphabet[index]) {
                 foundIndex = true;
                 isLetter = true;
+            } else {
+                index++;
             }
-            if (index >= 25) {
-                // didn't find, but must exit loop
-                foundIndex = true;
-                // isLetter remains false.
-            }
-            index++;
+
         }
 
         char shifted = c;
+
+        // only shift if c is a letter
         if (isLetter) {
-            int newIndex = (index + shift) % 25;
+            int newIndex = (index + shift) % 26;
             shifted = alphabet[newIndex];
 
             if(isCapital) {
@@ -65,7 +57,19 @@ public class SecretMessages {
      * @return the encrypted text
      */
     public static String caesarEncrypt(String text, int shift) {
-        return null; // TODO
+
+        char[] arr = text.toCharArray();
+        String shifted = "";
+        int modShift = shift;
+        if(modShift < 0) {
+            modShift += 26;
+        }
+
+        for(var i = 0; i < arr.length; i++) {
+            shifted = shifted + shiftLetter(arr[i], modShift);
+        }
+
+        return shifted;
     }
 
     /**
@@ -75,7 +79,7 @@ public class SecretMessages {
      * @return the decrypted text
      */
     public static String caesarDecrypt(String text, int shift) {
-        return null; // TODO
+        return caesarEncrypt(text, -shift);
     }
 
     /**
@@ -103,10 +107,13 @@ public class SecretMessages {
 
     public static void main(String[] args) {
         // testing shift
-        int s = 1;
-        char c = '!';
-        System.out.println(shiftLetter(c, s));
+        Scanner input = new Scanner(System.in);
 
 
+        System.out.println("What would you like to decrypt?");
+        String text = input.nextLine();
+        System.out.println("How many shifts?");
+        int shift = input.nextInt();
+        System.out.println(caesarDecrypt(text, shift));
     }
 }
