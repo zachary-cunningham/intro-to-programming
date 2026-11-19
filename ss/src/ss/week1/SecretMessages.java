@@ -107,16 +107,24 @@ public class SecretMessages {
         // for each letter in plaintext
         for (int i = 0; i < charArray.length; i++) {
 
-            // turn letter into shift value
-            int shift = keyArray[keyIndex];
-            shift = shift - 'A';
-            shift = shift % 26;
-            if (shift < 0) {
-                shift += 26;
+            char x = charArray[i];
+            boolean isCapital = Character.isUpperCase(charArray[i]);
+            if ((x <= 'z' && x >= 'a') || (x <= 'Z' && x >= 'A')) {
+                // turn letter into shift value
+                int shift = keyArray[keyIndex];
+                shift = shift - 'a';
+                if (shift < 0) {
+                    shift += 26;
+                }
+
+                outString = outString + shiftLetter(x, shift);
+
+                keyIndex = (keyIndex + 1) % keyArray.length;
+            } else {
+                outString = outString + x;
             }
 
-            outString = outString + shiftLetter(charArray[i], shift);
-            keyIndex = (keyIndex + 1) % keyArray.length;
+
         }
         return outString;
     }
@@ -139,16 +147,22 @@ public class SecretMessages {
         // for each ciphertext
         for (int i = 0; i < charArray.length; i++) {
 
-            // turn key character into shift value
-            int shift = keyArray[keyIndex];
-            shift = shift - 'A';
-            shift = shift % 26;
-            if (shift < 0) {
-                shift += 26;
-            }
+            char x = charArray[i];
+            boolean isCapital = Character.isUpperCase(charArray[i]);
+            if ((x <= 'z' && x >= 'a') || (x <= 'Z' && x >= 'A')) {
+                // turn letter into shift value
+                int shift = keyArray[keyIndex];
+                shift = shift - 'a';
+                if (shift < 0) {
+                    shift += 26;
+                }
 
-            outString = outString + shiftLetter(charArray[i], -shift);
-            keyIndex = (keyIndex + 1) % keyArray.length;
+                outString = outString + shiftLetter(x, -shift);
+
+                keyIndex = (keyIndex + 1) % keyArray.length;
+            } else {
+                outString = outString + x;
+            }
         }
         return outString;
 
@@ -157,7 +171,7 @@ public class SecretMessages {
 
     public static void main(String[] args) {
         // testing shift
-//
+
         System.out.println("Enter the text you want ciphered: ");
         Scanner input = new Scanner(System.in);
 
@@ -167,9 +181,6 @@ public class SecretMessages {
         String ciphertext = vigenereEncrypt(text, key);
         System.out.println("Your ciphered text is: " + ciphertext);
 
-
-
-        System.out.println("and then by your silly negation logic, the decryption would apparently be");
         System.out.println("Your deciphered text is: " + vigenereDecrypt(ciphertext, key));
 
     }
