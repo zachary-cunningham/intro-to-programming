@@ -6,7 +6,7 @@ import java.util.*;
  * letters a to z and A to Z are encrypted, and they keep their case; all
  * other characters stay the same.
  */
-public class SecretMessages {
+public class    SecretMessages {
     /**
      * Shifts a letter the given number of places further in the alphabet,
      * wrapping around from z to a. The letter keeps its case.
