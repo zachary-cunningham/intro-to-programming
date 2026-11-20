@@ -108,7 +108,7 @@ public class    SecretMessages {
         for (int i = 0; i < charArray.length; i++) {
 
             char x = charArray[i];
-            boolean isCapital = Character.isUpperCase(charArray[i]);
+
             if ((x <= 'z' && x >= 'a') || (x <= 'Z' && x >= 'A')) {
                 // turn letter into shift value
                 int shift = keyArray[keyIndex];
@@ -140,7 +140,7 @@ public class    SecretMessages {
         char[] charArray = text.toCharArray();
         char[] keyArray = key.toCharArray();
         int keyIndex = 0;
-        String outString = "";
+        StringBuilder outString = new StringBuilder();
 
         // -----
 
@@ -157,14 +157,14 @@ public class    SecretMessages {
                     shift += 26;
                 }
 
-                outString = outString + shiftLetter(x, -shift);
+                outString.append(shiftLetter(x, -shift));
 
                 keyIndex = (keyIndex + 1) % keyArray.length;
             } else {
-                outString = outString + x;
+                outString.append(x);
             }
         }
-        return outString;
+        return outString.toString();
 
 
     }
