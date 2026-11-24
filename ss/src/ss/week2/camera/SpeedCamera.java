@@ -1,5 +1,7 @@
 package ss.week2.camera;
 
+import java.util.Arrays;
+
 public class SpeedCamera {
     public static final int INITIAL_CAPACITY = 4;
     private final int limit;
@@ -9,12 +11,10 @@ public class SpeedCamera {
     private int[] speeds = new int[25];
     private int index = 0; // pointer to end of list for adding/deleting
 
-    // custom constructor
+    // CONSTRUCTORS
     public SpeedCamera(int limit) {
         this.limit = limit;
     }
-
-    // override, default values
     public SpeedCamera() {
         this(80);
     }
@@ -30,11 +30,13 @@ public class SpeedCamera {
      * @return the number of measurements
      * **/
     public int getCount() {
-        int count = 0;
-        while (count < speeds.length && speeds[count] != 0) {
-            count++;
-        }
-        return count;
+//        int count = 0;
+//        while (count < speeds.length && speeds[count] != 0) {
+//            count++;
+//        }
+//        return count;
+
+        return index;
     };
 
     /**
@@ -45,12 +47,28 @@ public class SpeedCamera {
         return speeds[index];
     };
 
+    public int calculateFine(int speed, int limit) {
+        if (speed > limit && speed <= limit + 10) {
+            return 50;
+        } else if (speed > limit + 10 && speed <= limit + 20) {
+            return 100;
+        } else if (speed > limit + 20) {
+            return 200;
+        }
+
+        return 0;
+    }
+
     /**
      * @param speed, records speed of passing car as newest measurement
      * **/
     public void record(int speed) {
         speeds[index] = speed;
         index++;
+        if (index >= speeds.length - 1) {
+            speeds = Arrays.copyOf( speeds, 2*speeds.length );
+        }
+        // record works
     };
 
     /**
@@ -75,17 +93,21 @@ public class SpeedCamera {
         double totalSpd = 0;
 
         if (getCount() > 0) {
-            int finalIndex = speeds.length - 1;
-            int firstIndex = finalIndex - k;
+            int finalIndex = getCount() - 1;
+            int firstIndex = finalIndex - k + 1;
 
-            for (var i = finalIndex; (i > firstIndex) && i > -1; i--) {
+            for (var i = finalIndex; (i > firstIndex - 1) && (i > -1); i--) {
+                System.out.println(speeds[i]);
                 totalSpd += speeds[i];
+                System.out.println("totalSpd: " + totalSpd);
             }
         }
 
         if(k > 0) {
             if(k <= getCount()) {
+                System.out.println("condition met!");
                 totalSpd /= k;
+                System.out.println("averageSpd is then: " + totalSpd);
             } else if (getCount() > 0){
                 totalSpd /= getCount();
             }
@@ -117,17 +139,7 @@ public class SpeedCamera {
 
         // per car, add to the fine
         for (int speed: speeds){
-
-            if (speed <= limit) {
-                // nothing :)
-            } else if (speed > limit && speed <= limit + 10) {
-                fine += 50;
-            } else if (speed > limit + 10 && speed <= limit + 20) {
-                fine += 100;
-            } else if (speed > limit + 20) {
-                fine += 200;
-            }
-
+            fine += calculateFine(speed, limit);
         }
 
         return fine;
