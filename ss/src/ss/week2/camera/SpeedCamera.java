@@ -152,7 +152,7 @@ public class SpeedCamera {
     public void removeOldest() {
         if (getCount() >= 1) {
             // rather than first emptying first item, just shift (override) all remaining items to the left
-            for (var i = 1; i < getCount() - 1; i++) {
+            for (var i = 0; i < getCount() - 1; i++) {
                 speeds[i] = speeds[i + 1];
             }
         }
