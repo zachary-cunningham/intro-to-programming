@@ -101,4 +101,33 @@ public class SpeedCameraTest {
         assertEquals(4, town.countSpeeding());
         assertEquals(450, town.totalFines());
     }
+
+    @Test
+    /** Removing the only measurement, as well as after it's grown, then recording another speed **/
+    public void testRemoveOldest() {
+        // written by Zachary
+        SpeedCamera gta = camera;
+
+        // EXPECTED, ACTUAL
+
+        // before and after adding a single speed
+        assertEquals(0, gta.getCount());
+        gta.record(67);
+        assertEquals(1, gta.getCount());
+        assertEquals(67, gta.averageLast(1));
+        gta.removeOldest();
+        assertEquals(0, gta.getCount());
+        assertEquals(0, gta.averageLast(1));
+
+        // removing after growing the array
+        for(var i = 1; i < 4; i++) {
+            gta.record(i*30); // 30 + 60 + 90 = 60 average
+            System.out.println(i*30);
+        }
+        gta.removeOldest();
+        assertEquals(75, gta.averageLast(3));
+
+
+
+    }
 }

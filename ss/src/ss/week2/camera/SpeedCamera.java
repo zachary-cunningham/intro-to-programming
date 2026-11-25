@@ -97,18 +97,18 @@ public class SpeedCamera {
             int firstIndex = finalIndex - k + 1;
 
             for (var i = finalIndex; (i > firstIndex - 1) && (i > -1); i--) {
-                System.out.println(speeds[i]);
+//                System.out.println(speeds[i]);
                 totalSpd += speeds[i];
-                System.out.println("totalSpd: " + totalSpd);
+//                System.out.println("totalSpd: " + totalSpd);
             }
         }
 
-        if(k > 0) {
+        if(k > 0 && getCount() > 0) {
             if(k <= getCount()) {
-                System.out.println("condition met!");
+//                System.out.println("condition met!");
                 totalSpd /= k;
-                System.out.println("averageSpd is then: " + totalSpd);
-            } else if (getCount() > 0){
+//                System.out.println("averageSpd is then: " + totalSpd);
+            } else {
                 totalSpd /= getCount();
             }
         }
@@ -146,10 +146,19 @@ public class SpeedCamera {
     };
 
     /**
-     * Removes the oldest measurement, all measurements shift one forward.
-     * Must only be called if there is at least one measurement.
+     * Removes the oldest measurement, all measurements shift one forward(to the "left").
+     * Works with at least one element.
      * **/
-    public void removeOldest() {};
+    public void removeOldest() {
+        if (getCount() >= 1) {
+            // rather than first emptying first item, just shift (override) all remaining items to the left
+            for (var i = 1; i < getCount() - 1; i++) {
+                speeds[i] = speeds[i + 1];
+            }
+        }
+
+        index--; // shift our pointer one back!
+    };
 
     /**
      * @return a description of this camera.
