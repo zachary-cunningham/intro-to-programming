@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ss.week2","l":"DollarsAndCentsCounter"},{"p":"ss.week2.camera","l":"SpeedCamera"}];updateSearchResults();

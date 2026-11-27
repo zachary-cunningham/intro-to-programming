@@ -130,4 +130,15 @@ public class SpeedCameraTest {
 
 
     }
+
+    @Test
+    /**  **/
+    public void testToString() {
+        camera.record(10);
+        camera.record(20);
+        camera.record(30);
+
+        assertEquals(" 10 20 30", camera.toString());
+
+    }
 }

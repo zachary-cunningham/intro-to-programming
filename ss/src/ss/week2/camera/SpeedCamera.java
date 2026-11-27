@@ -164,6 +164,15 @@ public class SpeedCamera {
      * @return a description of this camera.
      * TBC in later exercise.
      * **/
-//    public String toString() {};
+    public String toString() {
+        String output = "";
+        for (int speed : speeds) {
+            if(speed != 0) {
+                output = output + " " + Integer.toString(speed);
+            }
+        }
+
+        return output;
+    };
 
 }
