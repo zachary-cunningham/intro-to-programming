@@ -46,7 +46,7 @@ public class RiderTest {
     public void testRentTwice() {
         Bike other = new Bike(8);
         ann.rent(bike);
-        assertFalse(ann.rent(other));
+        assertFalse(ann.rent(other)); // this failed - expected false, got true
         assertSame(bike, ann.getBike());
         assertNull(other.getRider());
     }
