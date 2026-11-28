@@ -17,6 +17,10 @@ public class Rider {
         this.bike = null;
     }
 
+    public String toString() {
+        return "Rider " + this.name;
+    }
+
     /**
      * @return the name of the Rider
      * **/

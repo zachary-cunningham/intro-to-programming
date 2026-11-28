@@ -27,6 +27,10 @@ public class Bike {
         // rider is still null
     }
 
+    public String toString() {
+        return "Bike + " + getNumber();
+    }
+
     /**
      * @return the bike number
      * **/

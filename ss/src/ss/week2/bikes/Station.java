@@ -40,6 +40,18 @@ public class Station {
     }
 
     /**
+     * Prints "StationName: Bike X, Bike Y, etc"
+     * **/
+    public String toString() {
+        String msg = this.name + ": ";
+        for(var i = 0; i < this.docks.length; i++) {
+            msg = msg + this.docks[i].toString();
+        }
+
+        return msg;
+    }
+
+    /**
      * @return name(String) of station
      * **/
     public String getName() {
